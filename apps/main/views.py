@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def main(request):
+    ctx = {
+
+    }
+    return render(request, 'main/index.html', ctx)
