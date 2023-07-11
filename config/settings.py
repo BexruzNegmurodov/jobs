@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # apps
     'apps.main',
-    'apps.blog',
+    'apps.blogs',
     'apps.jobs',
     'apps.accounts',
     'apps.contact',
