@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def jobs(request):
+    ctx = {
+
+    }
+    return render(request, 'jobs/borwse_job.html', ctx)
