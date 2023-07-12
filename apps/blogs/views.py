@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
-from .models import Blog, Tags, Category
+from .models import Blog, Tags, Category, Comment
 from .forms import CommentForm
 
 
@@ -29,12 +29,22 @@ def blog_detail(request, slug):
     obj = Blog.objects.get(slug=slug)
     tags = Tags.objects.all()
     category = Category.objects.all()
+    comment = Comment.objects.filter(blog_id=obj.id, reply_to_comment__isnull=True)
+    reply_to_comment_id = request.GET.get('reply')
     form = CommentForm()
     if request.method == "POST":
         form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.blog = obj
+            comment.reply_to_comment_id = reply_to_comment_id
+            comment.save()
+        return redirect(".")
     ctx = {
         'obj': obj,
         'tags': tags,
+        'form': form,
         'category': category,
+        'comment': comment,
     }
     return render(request, 'blog/blog_details.html', ctx)

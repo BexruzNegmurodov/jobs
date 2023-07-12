@@ -28,6 +28,6 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'modified_date', 'created_date')
+    list_display = ('id', 'blog', 'name', 'modified_date', 'created_date')
     search_fields = ('name', 'blog')
     list_filter = ('modified_date', 'created_date')

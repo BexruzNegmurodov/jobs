@@ -128,109 +128,107 @@
                         </div>
                         <div class="comments-area">
                             <h4>{{ obj.comment_set.count }} Comments</h4>
-                            <div class="comment-list">
-                                <ul class="unordered-list">
-                                    <li>
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="{% static 'assets/img/blog/comment_1.png' %}" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <p class="comment">
-                                                        Multiply sea night grass fourth day sea lesser rule open subdue
-                                                        female
-                                                        fill
-                                                        which them
-                                                        Blessed, give fill lesser bearing multiply sea night grass
-                                                        fourth
-                                                        day
-                                                        sea
-                                                        lesser
-                                                    </p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="d-flex align-items-center">
-                                                            <h5>
-                                                                <a href="#">Emilly Blunt</a>
-                                                            </h5>
-                                                            <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                        </div>
-                                                        <div class="reply-btn">
-                                                            <a href="#" class="btn-reply text-uppercase">reply</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <ul>
-                                            <li>
-                                                <div class="single-comment justify-content-between d-flex">
-                                                    <div class="user justify-content-between d-flex">
-                                                        <div class="thumb">
-                                                            <img src="{% static 'assets/img/blog/comment_1.png' %}"
+                            {% for i in comment %}
+                                <div class="comment-list">
+                                    <ul class="unordered-list">
+                                        <li>
+                                            <div class="single-comment justify-content-between d-flex">
+                                                <div class="user justify-content-between d-flex">
+                                                    <div class="thumb">
+                                                        {% if i.image %}
+                                                            <img src="{{ i.image.url }}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'assets/img/blog/unnamed.jpg' %}"
                                                                  alt="">
-                                                        </div>
-                                                        <div class="desc">
-                                                            <p class="comment">
-                                                                Multiply sea night grass fourth day sea lesser rule open
-                                                                subdue
-                                                                female
-                                                                fill
-                                                                which them
-                                                                Blessed, give fill lesser bearing multiply sea night
-                                                                grass
-                                                                fourth
-                                                                day
-                                                                sea
-                                                                lesser
-                                                            </p>
-                                                            <div class="d-flex justify-content-between">
-                                                                <div class="d-flex align-items-center">
-                                                                    <h5>
-                                                                        <a href="#">Emilly Blunt</a>
-                                                                    </h5>
-                                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                                </div>
-                                                                <div class="reply-btn">
-                                                                    <a href="#"
-                                                                       class="btn-reply text-uppercase">reply</a>
-                                                                </div>
+                                                        {% endif %}
+
+                                                    </div>
+                                                    <div class="desc">
+                                                        <p class="comment">
+                                                            {{ i.message }}
+                                                        </p>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <h5>
+                                                                    <a href="#">{{ i.name }}</a>
+                                                                </h5>
+                                                                <p class="date">{{ i.created_date|date:"F d, Y" }}
+                                                                    at {{ i.created_date|date:"H:i" }}pm</p>
+                                                            </div>
+                                                            <div class="reply-btn">
+                                                                <a href="?reply={{ i.id }}#comment"
+                                                                   class="btn-reply text-uppercase">reply</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+                                            </div>
+                                            {% for j in i.get_children %}
+                                                <ul>
+                                                    <li>
+                                                        <div class="single-comment justify-content-between d-flex">
+                                                            <div class="user justify-content-between d-flex">
+                                                                <div class="thumb">
+                                                                    {% if j.image %}
+                                                                        <img src="{{ j.image.url }}" alt="">
+                                                                    {% else %}
+                                                                        <img src="{% static 'assets/img/blog/unnamed.jpg' %}"
+                                                                             alt="">
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="desc">
+                                                                    <p class="comment">
+                                                                        {{ j.message }}
+                                                                    </p>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h5>
+                                                                                <a href="#">{{ j.name }}
+                                                                                    <code>reply to</code>
+                                                                                    {{ j.reply_to_comment.name }}</a>
+                                                                            </h5>
+                                                                            <p class="date">{{ j.created_date|date:"F d, Y" }}
+                                                                                at {{ j.created_date|date:"H:i" }}pm </p>
+                                                                        </div>
+                                                                        <div class="reply-btn">
+                                                                            <a href="?reply={{ j.id }}#comment"
+                                                                               class="btn-reply text-uppercase">reply</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            {% endfor %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endfor %}
                         </div>
-                        <div class="comment-form">
+                        <div class="comment-form" id="comment">
                             <h4>Leave a Reply</h4>
-                            <form class="form-contact comment_form" action="#" id="commentForm">
+                            <form class="form-contact comment_form" action="#" id="commentForm" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30"
-                                                  rows="9" placeholder="Write Comment"></textarea>
+                                            {{ form.name }}
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input class="form-control" name="name" id="name" type="text"
-                                                   placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <input class="form-control" name="email" id="email" type="email"
-                                                   placeholder="Email">
+                                            {{ form.email }}
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <input class="form-control" name="website" id="website" type="text"
-                                                   placeholder="Website">
+                                            {{ form.image }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                        {{ form.message }}
                                         </div>
                                     </div>
                                 </div>
