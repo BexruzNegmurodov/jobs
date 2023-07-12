@@ -39,8 +39,9 @@ class Blog(Basic):
 
 
 class Comment(Basic):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=221)
     email = models.EmailField()
     image = models.ImageField(upload_to='blog/comment/')
     message = models.TextField()
+

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import Blog, Tags, Category
+from .forms import CommentForm
 
 
 def blog(request):
@@ -26,9 +27,11 @@ def blog(request):
 
 def blog_detail(request, slug):
     obj = Blog.objects.get(slug=slug)
-
     tags = Tags.objects.all()
     category = Category.objects.all()
+    form = CommentForm()
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES)
     ctx = {
         'obj': obj,
         'tags': tags,
