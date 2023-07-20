@@ -15,8 +15,12 @@
                                 <h1>Find Your Next Dream Job</h1>
 
                                 <div class="slider-btns">
-                                    <a href="{% url 'jobs:jobs' %}" class="btn hero-btn">Looking For a Job?</a>
-                                    <a href="{% url 'candidate:candidate' %}" class="hero-btn2">Find Talent</a>
+                                    {% if not request.user.role == 2 %}
+                                        <a href="{% url 'jobs:jobs' %}" class="btn hero-btn">Looking For a Job?</a>
+                                    {% endif %}
+                                    {% if not request.user.role == 1 %}
+                                        <a href="{% url 'accounts:candidate' %}" class="hero-btn2">Find Talent</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -58,7 +62,7 @@
             </div>
             <div class="container-fluid p-0">
                 <div class="top-job-slider ">
-{#                    for#}
+                    {#                    for#}
                     <div class="single-top-jobs ">
                         <div class="services-ion">
                             <img src="{% static 'assets/img/icon/job-iocn1.svg' %}" alt="">
@@ -122,7 +126,7 @@
                     </div>
                 </div>
                 <div class="row">
-{#                    for#}
+                    {#                    for#}
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-cat">
                             <div class="cat-icon">
@@ -146,10 +150,11 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-10">
                             <div class="h1-testimonial-active dot-style">
-{#                                for fidback#}
+                                {#                                for fidback#}
                                 <div class="single-testimonial position-relative">
                                     <div class="testimonial-caption">
-                                        <img src="{% static 'assets/img/icon/quotes-sign.png' %}" alt="" class="quotes-sign">
+                                        <img src="{% static 'assets/img/icon/quotes-sign.png' %}" alt=""
+                                             class="quotes-sign">
                                         <p>"The automated process starts as soon as your clothe go into the machine.
                                             This site outcome is gleaming clothe. Placeholder text commonly used. In
                                             publishing and graphic.</p>

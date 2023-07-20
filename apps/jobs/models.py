@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.utils.text import slugify
+
 from ckeditor.fields import RichTextField
 
 
@@ -39,23 +42,22 @@ class Job(Basic):
         (2, 'women'),
         (3, 'no difference')
     )
-    company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
+    slug = models.SlugField( null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True)
     location = models.CharField(max_length=221)
-    speciality = models.CharField(max_length=221)
-    image = models.ImageField(upload_to='jobs/')
     description = RichTextField()
-    gender = models.IntegerField(choices=GENDER)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     responsibility = RichTextField(null=True, blank=True)
     qualifications = RichTextField(null=True, blank=True)
-    Benefits = models.TextField(null=True, blank=True)
+    benefits = models.TextField(null=True, blank=True)
+    gender = models.IntegerField(choices=GENDER)
     vacancy = models.IntegerField(default=1)
     time = models.IntegerField(choices=TIME)
-    experience = models.IntegerField(default=0)
-    salary = models.IntegerField(default=0)
+    experience = models.CharField(max_length=221)
+    salary = models.CharField(max_length=221)
 
     def __str__(self):
-        return self.speciality
+        return str(self.category)
 
 
 class Apply(Basic):
@@ -64,3 +66,12 @@ class Apply(Basic):
     image = models.ImageField(upload_to='jobs/apply', null=True, blank=True)
     email = models.EmailField()
     message = models.TextField()
+
+
+def slug_post_save(instance, sender, created, *args, **kwargs):
+    if created:
+        instance.slug = slugify(f"{instance.company.name} {instance.category.name} {instance.id}", allow_unicode=True)
+        instance.save()
+
+
+post_save.connect(slug_post_save, sender=Job)

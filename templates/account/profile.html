@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap-5.3.0-dist/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap-5.3.0-dist/mycss/my_css.css' %}">
+
+
+{% block content %}
+
+    <div class="slider-area gray-bg position-relative">
+        <div class="single-slider d-flex align-items-center slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-caption hero-caption2">
+                            <h2>Your profile</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="job_listing_area section-bg2 plus_padding ">
+        <div class="container ">
+            <div class="row">
+
+{#                form--> 1.1   #}
+
+                <div class="col-lg-5">
+                    <div class="job_filter white-bg">
+                        <div class="form_inner white-bg">
+                            <div class="single_candidates text-center">
+                                <img src="{% static 'assets/img/gallery/unnamed.jpg' %}" alt="" style="border-radius: 60%" width="400px" >
+                                <div class="input-group mb-2 mt-3">
+                                    <input type="file" class="form-control" id="inputGroupFile01">
+                                </div>
+                                <div class="button-group-area mt-10">
+                                    <a href="#" class="genric-btn success circle arrow"><span
+                                            class="lnr lnr-arrow-right"></span>Upload</a>
+                                </div>
+                                <div class="mt-3">
+                                    <h4>Full name
+                                        <label for="first_name" class="border">
+                                            <img src="{% static 'assets/img/icon/instrumentos-protocolares-150x150.jpg' %}"
+                                                 alt="" width="32px">
+                                        </label>
+                                    </h4>
+
+                                    <p>Category</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{#                form--> 1.2   #}
+
+                <div class="col-lg-7">
+                    <div class="job_filter white-bg">
+                        <div class="form_inner white-bg">
+
+{#                            form--> 2.1 #}
+
+                            <div>
+                                <div class="input-group mb-3">
+                                    <label for="first_name">First name: </label>
+                                    <input type="text" class="form-control" placeholder="" id="first_name"
+                                           aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="last_name">Last name: </label>
+                                    <input type="text" class="form-control" placeholder="" id="last_name"
+                                           aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                </div>
+                                <div>
+                                    <div class="button-group-area f-right">
+                                        <a href="#" class="genric-btn success circle arrow"><span
+                                                class="lnr lnr-arrow-right"></span>Reload Name</a>
+                                    </div>
+                                </div>
+                            </div>
+
+{#                            form--> 2.2 #}
+
+                            <div class="col-md-12 mt-40">
+                                <label for="inputState" class="form-label mt-3">Category: </label>
+                                <select id="inputState" class="form-control">
+                                    <option>Category</option>
+                                    <option>1...</option>
+                                    <option>2...</option>
+                                    <option>3...</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 mt-40">
+                                <label for="inputState" class="form-label mt-3">Company: </label>
+                                <select id="inputState" class="form-control">
+                                    <option>Company</option>
+                                    <option>1...</option>
+                                    <option>2...</option>
+                                    <option>3...</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 mt-40">
+                                <label for="formFile" class="form-label mt-3">SV file: </label>
+                                <input class="form-control" type="file" id="formFile">
+                            </div>
+
+                            <div>
+                                <div class="button-group-area f-right">
+                                    <a href="#" class="genric-btn success circle arrow"><span
+                                            class="lnr lnr-arrow-right"></span>SAVE</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+

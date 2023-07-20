@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
+from apps.jobs.models import Category
 from .utils import avatar_path, cv_path
 
 

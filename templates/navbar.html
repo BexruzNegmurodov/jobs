@@ -10,13 +10,13 @@
                 <nav>
                     <ul id="navigation">
                         <li><a href="{% url 'main:main' %}">Home</a></li>
-                        <li><a href="{% url 'jobs:jobs' %}">Browse Job</a></li>
-                        <li><a href="#">Page</a>
-                            <ul class="submenu">
-                                <li><a href="{% url 'blogs:blog' %}">Blog</a></li>
-                                <li><a href="{% url 'candidate:candidate' %}">Candidates</a></li>
-                            </ul>
-                        </li>
+                        {% if not request.user.role == 2 %}
+                            <li><a href="{% url 'jobs:jobs' %}">Browse Job</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'blogs:blog' %}">Blog</a></li>
+                        {% if not request.user.role == 1 %}
+                            <li><a href="{% url 'accounts:candidate' %}">Candidates</a></li>
+                        {% endif %}
                         <li><a href="{% url 'contact:contact' %}">Contact</a></li>
                     </ul>
                 </nav>
@@ -26,8 +26,15 @@
         <div class="buttons">
             <ul>
                 <li class="button-header">
-                    <a href="#" class="header-btn mr-10"> <i class="fas fa-phone-alt"></i>Post A Job</a>
-                    <a href="{% url 'candidate:login' %}" class="btn header-btn2">Log In</a>
+{#                    <a href="#" class="header-btn mr-10"> <i class="fas fa-phone-alt"></i>Post A Job</a>#}
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'accounts:logout' %}" class="btn header-btn2">Log Out</a>
+                        {% if not request.user.role == 0 %}
+                            <a href="{% url 'accounts:profile' %}" class="btn header-btn2">Profile Update</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="btn header-btn2">Log In</a>
+                    {% endif %}
                 </li>
             </ul>
         </div>

@@ -19,7 +19,7 @@
         </div>
 
 
-        <section class="blog_area section-padding" >
+        <section class="blog_area section-padding" id="page">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 mb-5 mb-lg-0">
@@ -30,7 +30,7 @@
                                         <img class="card-img rounded-0" src="{{ object.image.url }}" alt="">
                                         <a href="{% url 'blogs:blog_detail' object.slug %}" class="blog_item_date">
                                             <h3>{{ object.created_date.day }}</h3>
-                                            <p>{{ object.created_date|date:"F" }}</p>
+                                            <p>{{ object.created_date|date:"M d Y" }}</p>
                                         </a>
                                     </div>
                                     <div class="blog_details">
