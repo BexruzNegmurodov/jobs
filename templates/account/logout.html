@@ -1,17 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    {% load static %}
+    <title>Effortlessly Chic Logout Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logout-message {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #e64141;
+        }
+
+        .no_logout-btn {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .no_logout-btn:hover {
+            background-color: #198754;
+        }
+
+    </style>
 </head>
 <body>
+<div class="container">
+    {% if request.user.image %}
+        <img class="logo" src="{{ request.user.image.url }}" alt="Your Logo">
+    {% else %}
+        <img src="{% static 'assets/img/gallery/unnamed.jpg' %}" alt="" width="100%">
+    {% endif %}
+
+    <h1>Goodbye!</h1>
     <form method="post">
         {% csrf_token %}
-        <div class="container">
-            <h1>Are you sore you logout ? </h1>
-            <a href="{% url 'main:main' %}" class="btn btn-outline-success p-3">NO</a>
-            <button type="submit" class="btn btn-outline-danger p-3">LOGOUT</button>
-        </div>
+        <p class="logout-message">Are you sore you logout ?</p>
+        <a href="{% url 'main:main' %}" class="no_logout-btn">NO</a>
+        <button class="logout-btn" type="submit">Logout</button>
     </form>
+</div>
 </body>
 </html>

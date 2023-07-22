@@ -25,6 +25,6 @@ class JobAdmin(admin.ModelAdmin):
 
 @admin.register(Apply)
 class ApplyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'job')
+    list_display = ('id', 'job')
     date_hierarchy = 'created_date'
     search_fields = ('name',)

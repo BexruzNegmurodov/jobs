@@ -4,7 +4,8 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from .models import Account
 
-#admin
+
+# admin
 
 class AccountCreationForm(forms.ModelForm):
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
@@ -46,6 +47,7 @@ class AccountChangeForm(forms.ModelForm):
     def clean_password(self):
         return self.initial['password']
 
+
 # site
 
 class AccountRegisterForm(forms.ModelForm):
@@ -71,3 +73,5 @@ class AccountRegisterForm(forms.ModelForm):
         if commit:
             account.save()
         return account
+
+

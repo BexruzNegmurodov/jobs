@@ -42,7 +42,7 @@ class Job(Basic):
         (2, 'women'),
         (3, 'no difference')
     )
-    slug = models.SlugField( null=True, blank=True)
+    slug = models.SlugField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True)
     location = models.CharField(max_length=221)
     description = RichTextField()
@@ -62,10 +62,10 @@ class Job(Basic):
 
 class Apply(Basic):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    name = models.CharField(max_length=221)
-    image = models.ImageField(upload_to='jobs/apply', null=True, blank=True)
-    email = models.EmailField()
-    message = models.TextField()
+    candidate = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, null=True)
+    is_being_considered = models.BooleanField(default=True)
+    to_accept = models.BooleanField(default=False)
+    to_refuse = models.BooleanField(default=False)
 
 
 def slug_post_save(instance, sender, created, *args, **kwargs):
