@@ -2,16 +2,26 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
 
 from .forms import AccountRegisterForm
+from .models import Account
 
 
 def candidate(request):
+    object_list = Account.objects.filter(role=1)
     ctx = {
-
+        'object_list': object_list
     }
-    return render(request, 'account/candidate.html', ctx)
+    return render(request, 'account/candidate/candidate.html', ctx)
+
+
+def candidate_detail(request, slug):
+    worker = Account.objects.get(slug=slug)
+    ctx = {
+        'worker': worker
+    }
+    return render(request, 'account/candidate/candidate_detail.html', ctx)
 
 
 def mylogin(request):

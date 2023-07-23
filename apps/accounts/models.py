@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.db.models.signals import pre_save
+from django.utils.text import slugify
 
 from apps.jobs.models import Category
 from .utils import avatar_path, cv_path
@@ -33,6 +35,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=221, unique=True)
     first_name = models.CharField(max_length=221, null=True)
     last_name = models.CharField(max_length=221, null=True)
+    slug = models.SlugField(unique=True, max_length=221, null=True)
     avatar = models.ImageField(null=True, blank=True, upload_to=avatar_path)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -61,3 +64,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
         if name_str:
             return name_str
         return self.email
+
+
+def pre_save_account_slug(instance, sender, *args, **kwargs):
+    instance.slug = slugify(instance.email)
+
+
+pre_save.connect(pre_save_account_slug, sender=Account)

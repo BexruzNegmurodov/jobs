@@ -36,7 +36,7 @@
                                     </div>
                                 {% endif %}
 
-                                <a href="#"><h4>{{ object.candidate.full_name }}</h4></a>
+                                <a href="{% url 'jobs:apply_detail' object.id %}"><h4>{{ object.candidate.full_name }}</h4></a>
                             </div>
                         </div>
                     {% endfor %}

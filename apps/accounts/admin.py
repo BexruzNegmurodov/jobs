@@ -17,7 +17,7 @@ class AccountAdmin(UserAdmin):
     filter_horizontal = ('groups', 'user_permissions')
     ordering = ()
     fieldsets = (
-        (None, {"fields": ('password', 'first_name', 'last_name', 'avatar')}),
+        (None, {"fields": ('password', 'first_name', 'last_name', 'slug', 'avatar')}),
         ("Documents", {"fields": ('cv',)}),
         ("Permissions", {"fields": ('groups', 'user_permissions', 'role', 'is_superuser', 'is_staff', 'is_active')}),
         ("important dates", {"fields": ('modified_date', 'created_date')})

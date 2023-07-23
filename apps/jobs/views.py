@@ -48,9 +48,17 @@ def job_detail(request, **kwargs):
     return render(request, 'jobs/job_details.html', ctx)
 
 
-def apply_job(request, **kwargs):
+def apply_job(request):
     object_list = Apply.objects.filter(job__author__email=request.user.email)
     ctx = {
         'object_list': object_list
     }
-    return render(request, 'account/job_worker/apply_job.html', ctx)
+    return render(request, 'jobs/job_worker/apply_job.html', ctx)
+
+
+def apply_detail(request, pk):
+    worker = Apply.objects.get(id=pk)
+    ctx = {
+        'worker': worker
+    }
+    return render(request, 'jobs/job_worker/apply_detail.html', ctx)
