@@ -18,10 +18,7 @@ def mylogin(request):
     form = AuthenticationForm(request)
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
-        print(form.errors)
-
         if form.is_valid():
-            print(123)
             user = form.get_user()
             login(request, user)
             messages.success(request, 'User successfully authentication')

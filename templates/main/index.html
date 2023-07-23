@@ -15,11 +15,12 @@
                                 <h1>Find Your Next Dream Job</h1>
 
                                 <div class="slider-btns">
-                                    {% if not request.user.role == 2 %}
+                                    {% if request.user.role == 1 %}
                                         <a href="{% url 'jobs:jobs' %}" class="btn hero-btn">Looking For a Job?</a>
                                     {% endif %}
-                                    {% if not request.user.role == 1 %}
+                                    {% if request.user.role == 2 %}
                                         <a href="{% url 'accounts:candidate' %}" class="hero-btn2">Find Talent</a>
+                                        <a href="{% url 'jobs:apply_job' %}" class="hero-btn2">Incoming Requests</a>
                                     {% endif %}
                                 </div>
                             </div>

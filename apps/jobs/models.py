@@ -42,6 +42,7 @@ class Job(Basic):
         (2, 'women'),
         (3, 'no difference')
     )
+    author = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, null=True)
     slug = models.SlugField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True)
     location = models.CharField(max_length=221)
@@ -57,15 +58,16 @@ class Job(Basic):
     salary = models.CharField(max_length=221)
 
     def __str__(self):
-        return str(self.category)
+        return f"{str(self.category)}, {str(self.author.email)}"
 
 
 class Apply(Basic):
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    candidate = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, null=True)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, null=True, blank=True)
+    candidate = models.ForeignKey('accounts.Account', on_delete=models.SET_NULL, null=True, blank=True)
     is_being_considered = models.BooleanField(default=True)
     to_accept = models.BooleanField(default=False)
     to_refuse = models.BooleanField(default=False)
+    message = models.TextField(null=True)
 
 
 def slug_post_save(instance, sender, created, *args, **kwargs):

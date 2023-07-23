@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
 
-
 from .models import Job, Company, Category, Apply
+from .forms import ApplyForm
 
 
 def jobs(request):
@@ -32,8 +32,25 @@ def jobs(request):
 
 def job_detail(request, **kwargs):
     obj = Job.objects.get(slug=kwargs.get('slug'))
-
+    form = ApplyForm()
+    if request.method == "POST":
+        form = ApplyForm(data=request.POST, files=request.FILES or None)
+        if form.is_valid():
+            apply = form.save(commit=False)
+            apply.candidate = request.user
+            apply.job = obj
+            apply.save()
+            return redirect('.')
     ctx = {
-        'obj': obj
+        'obj': obj,
+        'form': form,
     }
     return render(request, 'jobs/job_details.html', ctx)
+
+
+def apply_job(request, **kwargs):
+    object_list = Apply.objects.filter(job__author__email=request.user.email)
+    ctx = {
+        'object_list': object_list
+    }
+    return render(request, 'account/job_worker/apply_job.html', ctx)

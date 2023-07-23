@@ -74,42 +74,13 @@
                         </div>
                         <div class="apply_job_form white-bg">
                             <h4>Apply for the job</h4>
-
-                                <form method="post">
+                            {% if request.user.email %}
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
                                     <div class="row">
-                                        {% if not request.user.first_name %}
-                                            <div class="col-md-6">
-                                                <div class="input_field">
-                                                    <input type="text" placeholder="Your name">
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                        {% if not request.user.email %}
-                                            <div class="col-md-6">
-                                                <div class="input_field">
-                                                    <input type="text" placeholder="Email">
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <button type="button" id="inputGroupFileAddon03">
-                                                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="inputGroupFile03"
-                                                           aria-describedby="inputGroupFileAddon03">
-                                                    <label class="custom-file-label" for="inputGroupFile03">Upload
-                                                        CV</label>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-md-12">
                                             <div class="input_field">
-                                            <textarea name="#" id="" cols="30" rows="10"
-                                                      placeholder="Coverletter"></textarea>
+                                                {{ form.message }}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -119,6 +90,13 @@
                                         </div>
                                     </div>
                                 </form>
+                            {% else %}
+                                <div class="col-md-12">
+                                    <div class="submit_btn">
+                                        <a href="{% url 'accounts:login' %}" class="boxed-btn3 w-100">Apply Now</a>
+                                    </div>
+                                </div>
+                            {% endif %}
 
                         </div>
                     </div>
