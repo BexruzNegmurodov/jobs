@@ -1,12 +1,13 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
-from .views import candidate, candidate_detail, mylogin, register, mylogout, profile
+from .views import candidate, candidate_detail, selected, mylogin, register, mylogout, profile
 
 app_name = 'accounts'
 
 urlpatterns = [
     path('', candidate, name='candidate'),
     path('candidate_detail/<slug:slug>/', candidate_detail, name='candidate_detail'),
+    path('selected/', selected, name='selected'),
     path('login/', mylogin, name='login'),
     path('register/', register, name='register'),
     path('logout/', mylogout, name='logout'),

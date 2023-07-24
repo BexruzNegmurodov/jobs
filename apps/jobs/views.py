@@ -58,6 +58,16 @@ def apply_job(request):
 
 def apply_detail(request, pk):
     worker = Apply.objects.get(id=pk)
+    if request.method == "POST":
+        result = request.POST.get('result')
+        if result == '1':
+            worker.to_accept = True
+            worker.to_refuse = False
+        else:
+            worker.to_accept = False
+            worker.to_refuse = True
+        worker.save()
+        return redirect("jobs:apply_job")
     ctx = {
         'worker': worker
     }

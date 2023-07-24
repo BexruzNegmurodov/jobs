@@ -16,7 +16,7 @@
 
                                 <div class="slider-btns">
                                     {% if request.user.role == 1 %}
-                                        <a href="{% url 'jobs:jobs' %}" class="btn hero-btn">Looking For a Job?</a>
+                                        <a href="{% url 'accounts:selected' %}" class="btn hero-btn">Selected jobs</a>
                                     {% endif %}
                                     {% if request.user.role == 2 %}
                                         <a href="{% url 'accounts:candidate' %}" class="hero-btn2">Find Talent</a>
@@ -61,22 +61,6 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid p-0">
-                <div class="top-job-slider ">
-                    {#                    for#}
-                    <div class="single-top-jobs ">
-                        <div class="services-ion">
-                            <img src="{% static 'assets/img/icon/job-iocn1.svg' %}" alt="">
-                        </div>
-                        <div class="services-cap">
-                            <h5><a href="#">Design & creatives</a></h5>
-                            <p>The automated process starts as soon as your clothes go into.</p>
-                            <a href="#" class="product_btn">Apply Now</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </section>
 
 
@@ -101,7 +85,7 @@
                                 <p class="mb-45">Automated process starts as soon as your clothes
                                     go into the machine. The outcome is gleaming clothes.
                                     Placeholder text commonly used.</p>
-                                <a href="#" class="btn about-btn">Find Talent</a>
+                                <a href="{% url 'jobs:jobs' %}" class="btn about-btn">Find Talent</a>
                             </div>
                         </div>
                     </div>
@@ -127,19 +111,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    {#                    for#}
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-cat">
-                            <div class="cat-icon">
-                                <img src="{% static 'assets/img/icon/top-cat1.svg' %}" alt="">
-                            </div>
-                            <div class="cat-cap">
-                                <h5><a href="#">Design & creatives</a></h5>
-                                <p>The automated process starts as soon as your clothes go into.</p>
-                                <a href="#" class="view_btn">Browse Job</a>
+                    {% for object in object_list %}
+
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-cat">
+                                <div class="cat-icon">
+                                    <img src="{{ object.image.url }}" alt="" width="100%">
+                                </div>
+                                <div class="cat-cap">
+                                    <h5><a href="#">{{ object.name }}</a></h5>
+                                    <p>{{ object.body }}</p>
+                                    <a href="{% url 'jobs:jobs' %}" class="view_btn">Browse Job</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

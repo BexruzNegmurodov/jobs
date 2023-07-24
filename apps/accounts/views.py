@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout
 from .forms import AccountRegisterForm
 from .models import Account
 
+from apps.jobs.models import Apply
 
 def candidate(request):
     object_list = Account.objects.filter(role=1)
@@ -22,6 +23,15 @@ def candidate_detail(request, slug):
         'worker': worker
     }
     return render(request, 'account/candidate/candidate_detail.html', ctx)
+
+
+def selected(request):
+    jobs = Apply.objects.filter(candidate__email=request.user.email)
+    print(type(jobs))
+    ctx = {
+        'jobs': jobs
+    }
+    return render(request, 'account/candidate/selected.html', ctx)
 
 
 def mylogin(request):
